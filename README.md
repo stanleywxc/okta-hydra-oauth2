@@ -1,4 +1,4 @@
-# okta-hydra-oauth2
+# ory-hydra-oauth2
 
 #### Initial Setup Steps
 
