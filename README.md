@@ -6,7 +6,7 @@
 docker network create hydra-net
 ```
 
-The following setup will use my existing postgres database, which is in postgres-db network If you don't have postgres database setup, you can create on with the command below and use hydra-net as its network. I will use mine so I will join the 'hydra-net'
+The following setup will use my existing postgres database, which is in 'postgres-net' network If you don't have postgres database setup, you can create one with the command below and use 'hydra-net' as its network. I will use mine so I will join the 'hydra-net'
 
 ```
 Skip this step, if you have your own postgres database
@@ -19,15 +19,15 @@ docker run --network hydra-net \
   -d postgres:9.6
 ```
 
-```
 This secret is a critical one, you should save it to somewhere since it is used for encrypt data at rest.
+```
 
 export SECRETS_SYSTEM=$(export LC_CTYPE=C; cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
 ```
 
-```
 Obviously, you need to create a user 'hydra' and database 'hydra' first
+```
 
 export DSN=postgres://hydra:secret@postgres-db:5432/hydra?sslmode=disable
 
