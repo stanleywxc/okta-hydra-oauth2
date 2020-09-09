@@ -8,9 +8,8 @@ docker network create hydra-net
 
 The following setup will use my existing postgres database, which is in 'postgres-net' network If you don't have postgres database setup, you can create one with the command below and use 'hydra-net' as its network. I will use mine so I will join the 'hydra-net'
 
+Create the database for hydra. Skip this step, if you have your own postgres database
 ```
-Skip this step, if you have your own postgres database
-
 docker run --network hydra-net \
   --name hydra-postgres \
   -e POSTGRES_USER=hydra \
@@ -51,16 +50,20 @@ docker run -d \
   -e URLS_CONSENT=http://127.0.0.1:9020/consent \
   -e URLS_LOGIN=http://127.0.0.1:9020/login \
   oryd/hydra:v1.7.4 serve all --dangerous-force-http
+```
 
-# Attach the container to 'hydra-net' network
+Attach the container to 'hydra-net' network
+```
 docker network connect hydra-net hydra-hydra
-
+```
 
 Check if it is running:
 
+```
 docker run --rm -it oryd/hydra:v1.7.4 help
+```
 
-
+```
 docker run --rm -it \
   --network hydra-net \
   oryd/hydra:v1.7.4 \
@@ -70,7 +73,6 @@ docker run --rm -it \
     --secret test-password \
     --grant-types client_credentials \
     --response-types token,code
-
 
 docker run --rm -it \
   --network hydra-net \
@@ -87,8 +89,9 @@ docker run --rm -it \
   token introspect \
     --endpoint http://hydra-hydra:4445 \
     xUOaZzW5E_GTiWzVp-CGdYdi1zuGljMPClLLOoA9cKY.CG-Jei8PU3F5QyNwrwPx98yWcLFEG0fJgJqc30WdulU
+```
 
-
+```
 docker run -d \
   --name ory-hydraexample--consent \
   -p 9020:3000 \
@@ -123,7 +126,4 @@ docker run --rm -it \
     --client-secret password \
     --scope openid,offline \
     --redirect http://127.0.0.1:9010/callback
-
-
-
 ```
